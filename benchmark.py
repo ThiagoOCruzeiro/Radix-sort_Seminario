@@ -1,21 +1,4 @@
-"""
-PESSOA 4 - Ambiente Experimental e Benchmarks (Secoes 8 a 12)
-==============================================================
 
-Este script:
-  - Secao 8:  mede tempo de execucao, iteracoes e movimentacoes (metricas
-              aplicaveis ao Radix Sort - ele nao usa comparacoes/trocas
-              classicas, e sim contagem e redistribuicao por digito).
-  - Secao 9:  roda os benchmarks em tamanhos crescentes (10^1 a 10^5).
-  - Secao 10: usa os 8 tipos de vetores de entrada exigidos.
-  - Secao 11: repete cada configuracao 5x e calcula media/mediana/desvio.
-  - Secao 12: fixa semente aleatoria e registra o ambiente de execucao.
-
-Saida:
-  - resultados_benchmark.csv  -> tabela bruta com todas as execucoes
-  - resultados_resumo.csv     -> tabela agregada (media, mediana, desvio)
-  - graficos/*.png            -> graficos tempo/iteracoes vs tamanho da entrada
-"""
 import time
 import platform
 import statistics
@@ -27,9 +10,9 @@ from radix_sort_base import radix_sort
 from geradores_vetores import TIPOS_DE_ENTRADA
 
 
-# ---------------------------------------------------------------------------
+
 # Secao 12 - Controle experimental: registro do ambiente
-# ---------------------------------------------------------------------------
+
 def registrar_ambiente():
     info = {
         "sistema_operacional": platform.platform(),
@@ -39,16 +22,16 @@ def registrar_ambiente():
     return info
 
 
-# ---------------------------------------------------------------------------
+
 # Secao 16 (apoio) - Validacao: confere se o resultado esta corretamente ordenado
-# ---------------------------------------------------------------------------
+
 def esta_ordenado(vetor):
     return all(vetor[i] <= vetor[i + 1] for i in range(len(vetor) - 1))
 
 
-# ---------------------------------------------------------------------------
+
 # Secao 8 - Execucao unica com medicao de metricas
-# ---------------------------------------------------------------------------
+
 def executar_uma_vez(vetor_original):
     vetor = vetor_original.copy()
 
@@ -76,9 +59,9 @@ def executar_uma_vez(vetor_original):
     }
 
 
-# ---------------------------------------------------------------------------
+
 # Secao 11 - Repeticao dos experimentos (5x por configuracao)
-# ---------------------------------------------------------------------------
+
 def executar_repeticoes(vetor_original, repeticoes=5):
     execucoes = [executar_uma_vez(vetor_original) for _ in range(repeticoes)]
 
@@ -100,9 +83,9 @@ def executar_repeticoes(vetor_original, repeticoes=5):
     return resumo
 
 
-# ---------------------------------------------------------------------------
+
 # Secao 9 - Benchmarks em escala crescente
-# ---------------------------------------------------------------------------
+
 TAMANHOS = [10, 100, 1_000, 10_000, 100_000]  # ate 10^5, conforme definido
 REPETICOES = 5
 
